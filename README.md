@@ -1,5 +1,5 @@
-# Pwn-College-Writeups-White-Belt-
-Some Basics of Assembbly Language Writeups
+
+# Some Basics of Assembbly Language Writeups
 
 This is the Format to be used to solve all levels 
 
