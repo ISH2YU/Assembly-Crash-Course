@@ -7,7 +7,9 @@ This is the Format to be used to solve all levels
 import pwn
 pwn.context.update(arch="amd64")
 code = pwn.asm("""
+
 // Enter Your Assembly Here
+
 """)
 process = pwn.process("/challenge/embryoasm")
 process.write(code)
