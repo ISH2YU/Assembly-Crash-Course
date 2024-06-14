@@ -1,5 +1,5 @@
 
-# Some Basics of Assembbly Language Writeups
+# Some Basics of Assembbly Language Labs Writeups
 
 I am Using `Pwntools` for this entire challenge 
 
