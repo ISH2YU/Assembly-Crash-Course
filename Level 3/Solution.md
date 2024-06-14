@@ -52,7 +52,7 @@ Please give me your assembly in bytes (up to 0x1000 bytes):
 import pwn
 pwn.context.update(arch="amd64")
 code = pwn.asm("""
-
+add rdi, 0x331337
 """)
 process = pwn.process(/challenge/run)
 process.write(code)
