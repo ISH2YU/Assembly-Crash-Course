@@ -1,9 +1,7 @@
 ```sh
-cd /challenge
+/challenge/run
 ```
-```sh
-run
-```
+
 Write your Assembly in ipython
 
 ```sh
