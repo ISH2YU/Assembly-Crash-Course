@@ -8,7 +8,9 @@ I will Explain this in context to our Challenge , We have 3 Registers
 - rax
 
 We have to find rax here 
-If we Write div rsi , It means that rax:rdx by rsi register 
+
+If we Write div rsi , It means that rax:rdx by rsi register
+
 Since here rdx is zero , this will occur : rax / rsi
 
 Quotient : rax 
