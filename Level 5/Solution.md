@@ -12,6 +12,7 @@ If we Write div rsi , It means that rax:rdx by rsi register
 Since here rdx is zero , this will occur : rax / rsi
 
 Quotient : rax 
+
 Remainder : rdx
 
 
