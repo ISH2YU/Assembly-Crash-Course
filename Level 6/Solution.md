@@ -50,6 +50,7 @@ code = pwn.asm("""
 
 mov rax, rdi
 div rsi
+mov rax, rdx
 
 """)
 process = pwn.process("/challenge/run")
