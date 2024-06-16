@@ -15,7 +15,7 @@ code = pwn.asm("""
 // Enter Your Assembly Here
 
 """)
-process = pwn.process("/challenge/embryoasm")
+process = pwn.process("/challenge/run")
 process.write(code)
 print(process.readall())
 ```
