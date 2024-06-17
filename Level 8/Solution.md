@@ -1,3 +1,7 @@
+## Concept 
+
+The concept is Self Explanatory in Level Brief , you need to know about `dil` and `si` which are lower order 8 bits of rdi and rsi registers
+
 ```sh
 hacker@assembly-crash-course~level8:~$ /challenge/run
 
