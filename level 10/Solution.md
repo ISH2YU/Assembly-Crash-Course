@@ -1,3 +1,16 @@
+## C0ncept 
+
+Cheat code for AND , OR and XOR Logic
+
+Suppose we have A and B values :-
+
+- AND : A.B
+- OR : A + B
+- XOR : Odd 1's Detector (eg. It will only change its value to 1 when there is odd no. of 1's or else its always zero)
+
+
+  Note : Do not assume any register as 0x0 until specified in question , Assume they can have any random value
+  
 
 ```sh
 
