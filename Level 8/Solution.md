@@ -1,56 +1,58 @@
 ```sh
-hacker@assembly-crash-course-level-7:~$ /challenge/run
+hacker@assembly-crash-course~level8:~$ /challenge/run
 
-Welcome to ASMLevel7
+Welcome to ASMLevel8
 ==================================================
 
 To interact with any level you will send raw bytes over stdin to this program.
-To efficiently solve these problems, first run it once to see what you need
-then craft, assemble, and pipe your bytes to this program.
+To efficiently solve these problems, first run it to see the challenge instructions.
+Then craft, assemble, and pipe your bytes to this program.
+
+For instance, if you write your assembly code in the file asm.S, you can assemble that to an object file:
+  as -o asm.o asm.S
+
+Note that if you want to use Intel syntax for x86 (which, of course, you do), you'll need to add the following to the start of asm.S:
+  .intel_syntax noprefix
+
+Then, you can copy the .text section (your code) to the file asm.bin:
+  objcopy -O binary --only-section=.text asm.o asm.bin
+
+And finally, send that to the challenge:
+  cat ./asm.bin | /challenge/run
+
+You can even run this as one command:
+  as -o asm.o asm.S && objcopy -O binary --only-section=.text ./asm.o ./asm.bin && cat ./asm.bin | /challenge/run
 
 In this level you will be working with registers. You will be asked to modify
-or read from registers_use.
+or read from registers.
 
 We will now set some values in memory dynamically before each run. On each run
 the values will change. This means you will need to do some type of formulaic
-operation with registers_use. We will tell you which registers_use are set beforehand
+operation with registers. We will tell you which registers are set beforehand
 and where you should put the result. In most cases, its rax.
 
-In this level you will be working with bit logic and operations. This will involve heavy use of
-directly interacting with bits stored in a register or memory location. You will also likely
-need to make use of the logic instructions in x86: and, or, not, xor.
 
 
+It turns out that using the div operator to compute the modulo operation is slow!
 
-Shifting in assembly is another interesting concept! x86 allows you to 'shift'
-bits around in a register. Take for instance, rax. For the sake of this example
-say rax only can store 8 bits (it normally stores 64). The value in rax is:
-rax = 10001010
-If we shift the value once to the left:
-shl rax, 1
-The new value is:
-rax = 00010100
-As you can see, everything shifted to the left and the highest bit fell off and
-a new 0 was added to the right side. You can use this to do special things to
-the bits you care about. It also has the nice side affect of doing quick multiplication,
-division, and possibly modulo.
-Here are the important instructions:
-shl reg1, reg2       <=>     Shift reg1 left by the amount in reg2
-shr reg1, reg2       <=>     Shift reg1 right by the amount in reg2
-Note: all 'regX' can be replaced by a constant or memory location
+We can use a math trick to optimize the modulo operator (%). Compilers use this trick a lot.
 
-Using only the following instructions:
-mov, shr, shl
-Please perform the following:
-Set rax to the 5th least significant byte of rdi
-i.e.
-rdi = | B7 | B6 | B5 | B4 | B3 | B2 | B1 | B0 |
-Set rax to the value of B4
+If we have "x % y", and y is a power of 2, such as 2^n, the result will be the lower n bits of x.
+
+Therefore, we can use the lower register byte access to efficiently implement modulo!
+
+Using only the following instruction(s):
+  mov
+
+Please compute the following:
+  rax = rdi % 256
+  rbx = rsi % 65536
 
 We will now set the following in preparation for your code:
-rdi = 0x62de7e71bc6a889e
+  rdi = 0x2ea2
+  rsi = 0x224aa0f
 
-Please give me your assembly in bytes (up to 0x1000 bytes):
+Please give me your assembly in bytes (up to 0x1000 bytes): 
 ```
 
 ## Solution
