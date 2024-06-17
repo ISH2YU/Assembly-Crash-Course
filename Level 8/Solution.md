@@ -61,9 +61,10 @@ Please give me your assembly in bytes (up to 0x1000 bytes):
 import pwn
 pwn.context.update(arch="amd64")
 code = pwn.asm("""
-mov rax, rdi
-shl rax, 24
-shr rax, 56
+
+mov al, dil
+mov bx, si
+
 """ )
 process = pwn.process("/challenge/run")
 process.write(code)
