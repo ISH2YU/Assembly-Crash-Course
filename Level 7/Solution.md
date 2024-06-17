@@ -1,7 +1,7 @@
 ```sh
 hacker@assembly-crash-course-level-6:~$ /challenge/run
 
-Welcome to ASMLevel6
+Welcome to ASMLevel7
 ==================================================
 
 To interact with any level you will send raw bytes over stdin to this program.
