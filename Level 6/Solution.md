@@ -1,5 +1,12 @@
+## Concept 
+In the Earlier Level we Studied about the `Div` Instruction 
 
+We have to Find Modulus of which means remainder when we divide rdi and rsi
 
+Quotient : rax
+Remainder : rdx 
+
+Since in This Question we are only interested in Remainder , Just Move the value of rdx to rax which is getting checked you will get the flag
 
 
 ```sh
