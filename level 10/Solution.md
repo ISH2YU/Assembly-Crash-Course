@@ -1,8 +1,9 @@
 
 ```sh
-hacker@assembly-crash-course~level9:~$ /challenge/run
 
-Welcome to ASMLevel9
+hacker@assembly-crash-course~level10:~$ /challenge/run
+
+Welcome to ASMLevel10
 ==================================================
 
 To interact with any level you will send raw bytes over stdin to this program.
@@ -38,48 +39,53 @@ need to make use of the logic instructions in x86: and, or, not, xor.
 
 
 
-Shifting bits around in assembly is another interesting concept!
+Bitwise logic in assembly is yet another interesting concept!
+x86 allows you to perform logic operations bit by bit on registers.
 
-x86 allows you to 'shift' bits around in a register.
+For the sake of this example say registers only store 8 bits.
 
-Take, for instance, al, the lowest 8 bits of rax.
+The values in rax and rbx are:
+  rax = 10101010
+  rbx = 00110011
 
-The value in al (in bits) is:
-  rax = 10001010
+If we were to perform a bitwise AND of rax and rbx using the
+"and rax, rbx" instruction, the result would be calculated by
+ANDing each bit pair 1 by 1 hence why it's called a bitwise
+logic.
 
-If we shift once to the left using the shl instruction:
-  shl al, 1
+So from left to right:
+  1 AND 0 = 0
+  0 AND 0 = 0
+  1 AND 1 = 1
+  0 AND 1 = 0
+  ...
 
-The new value is:
-  al = 00010100
+Finally we combine the results together to get:
+  rax = 00100010
 
-Everything shifted to the left and the highest bit fell off
-while a new 0 was added to the right side.
+Here are some truth tables for reference:
+      AND          OR           XOR
+   A | B | X    A | B | X    A | B | X
+  ---+---+---  ---+---+---  ---+---+---
+   0 | 0 | 0    0 | 0 | 0    0 | 0 | 0
+   0 | 1 | 0    0 | 1 | 1    0 | 1 | 1
+   1 | 0 | 0    1 | 0 | 1    1 | 0 | 1
+   1 | 1 | 1    1 | 1 | 1    1 | 1 | 0
 
-You can use this to do special things to the bits you care about.
-
-Shifting has the nice side affect of doing quick multiplication (by 2)
-or division (by 2), and can also be used to compute modulo.
-
-Here are the important instructions:
-  shl reg1, reg2       <=>     Shift reg1 left by the amount in reg2
-  shr reg1, reg2       <=>     Shift reg1 right by the amount in reg2
-  Note: 'reg2' can be replaced by a constant or memory location
-
-Using only the following instructions:
-  mov, shr, shl
+Without using the following instructions:
+  mov, xchg
 
 Please perform the following:
-  Set rax to the 5th least significant byte of rdi.
+  rax = rdi AND rsi
 
-For example:
-  rdi = | B7 | B6 | B5 | B4 | B3 | B2 | B1 | B0 |
-  Set rax to the value of B4
+i.e. Set rax to the value of (rdi AND rsi)
 
 We will now set the following in preparation for your code:
-  rdi = 0x8b3c29f3b4ac06bc
+  rdi = 0x837587abee834e93
+  rsi = 0x9018f7be464e6aaa
 
-Please give me your assembly in bytes (up to 0x1000 bytes):
+Please give me your assembly in bytes (up to 0x1000 bytes): 
+
 ```
 
 
