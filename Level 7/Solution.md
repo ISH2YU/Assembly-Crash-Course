@@ -1,29 +1,63 @@
+## Concept 
+
+- rax : 64 Bit
+- eax : 32 Bit
+- ax : 16 bit
+- ah : 8 bit
+
+ suppose we have register **rax** : In this **eax** is upper 32 bits and **ebx** is lower 32 bits. Similarly :-
+ 
+ - eax : ax upper 16 Bits , bx lower 16 bits
+ - ax : ah upper 8 bits , al lower 8 bits
+             
+ I think this enough to solve the level below
+ 
+
 ```sh
-hacker@assembly-crash-course-level-6:~$ /challenge/run
+hacker@assembly-crash-course~level7:~$ /challenge//run
 
 Welcome to ASMLevel7
 ==================================================
 
 To interact with any level you will send raw bytes over stdin to this program.
-To efficiently solve these problems, first run it once to see what you need
-then craft, assemble, and pipe your bytes to this program.
+To efficiently solve these problems, first run it to see the challenge instructions.
+Then craft, assemble, and pipe your bytes to this program.
+
+For instance, if you write your assembly code in the file asm.S, you can assemble that to an object file:
+  as -o asm.o asm.S
+
+Note that if you want to use Intel syntax for x86 (which, of course, you do), you'll need to add the following to the start of asm.S:
+  .intel_syntax noprefix
+
+Then, you can copy the .text section (your code) to the file asm.bin:
+  objcopy -O binary --only-section=.text asm.o asm.bin
+
+And finally, send that to the challenge:
+  cat ./asm.bin | /challenge/run
+
+You can even run this as one command:
+  as -o asm.o asm.S && objcopy -O binary --only-section=.text ./asm.o ./asm.bin && cat ./asm.bin | /challenge/run
 
 In this level you will be working with registers. You will be asked to modify
-or read from registers_use.
+or read from registers.
 
 We will now set some values in memory dynamically before each run. On each run
 the values will change. This means you will need to do some type of formulaic
-operation with registers_use. We will tell you which registers_use are set beforehand
+operation with registers. We will tell you which registers are set beforehand
 and where you should put the result. In most cases, its rax.
+                                                                                                
+                                                                                                
 
+Another cool concept in x86 is the ability to independently access to lower register bytes.
 
+Each register in x86_64 is 64 bits in size, and in the previous levels we have accessed
+the full register using rax, rdi or rsi.
 
-Another cool concept in x86 is the independent access to lower register bytes.
-Each register in x86 is 64 bits in size, in the previous levels we have accessed
-the full register using rax, rdi or rsi. We can also access the lower bytes of
-each register using different register names. For example the lower
-32 bits of rax can be accessed using eax, lower 16 bits using ax,
-lower 8 bits using al, etc.
+We can also access the lower bytes of each register using different register names.
+
+For example the lower 32 bits of rax can be accessed using eax, the lower 16 bits using ax,
+the lower 8 bits using al.
+
 MSB                                    LSB
 +----------------------------------------+
 |                   rax                  |
@@ -34,33 +68,29 @@ MSB                                    LSB
                                +----+----+
                                | ah | al |
                                +----+----+
-Lower register bytes access is applicable to all registers_use.
 
-Using only the following instruction(s)
-mov
-Please compute the following:
-rax = rdi modulo 256
-rbx = rsi modulo 65536
+Lower register bytes access is applicable to almost all registers.
+
+Using only one move instruction, please set the upper 8 bits of the ax register to 0x42.
 
 We will now set the following in preparation for your code:
-rdi = 0x42d8
-rsi = 0x5d2dc86f
+  rax = 0xd7204e949d8100b5
 
-Please give me your assembly in bytes (up to 0x1000 bytes):
+Please give me your assembly in bytes (up to 0x1000 bytes): 
 ```
 
 ## Solution
 
 ```python
-import pwn
+import pwn 
 pwn.context.update(arch="amd64")
 code = pwn.asm("""
 
-mov al, dil
-mov bx, si
+mov ah, 0x42
 
-""" )
+""")
 process = pwn.process("/challenge/run")
 process.write(code)
 print(process.readall())
+
 ```
