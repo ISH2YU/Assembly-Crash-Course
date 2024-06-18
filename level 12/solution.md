@@ -1,3 +1,10 @@
+## Concept 
+
+The `[ ]` here means that we are dereferencing our address 
+
+Meaning : We are not putting the address in the register rather we are putting value store in address in our register 
+
+
 ```sh
 hacker@assembly-crash-course~level12:~$ /challenge//run
 
