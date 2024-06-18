@@ -1,3 +1,22 @@
+## Concept 
+rax = y
+
+XOR rax , rax : This clears the rax register , therefore rax = 0
+
+rdi =  x
+
+To check if x is even : rdi AND 1 
+
+- If LSB is 1 , result will be 1 indicating its odd
+- If LSB is 0 , result will be 0 indicating its even
+
+OR rax, rdi  : In this since our rax = 0 , the or instruction basically just acts a mov instruction copying values of rdi into rax
+
+XOR rax, 1 : This will flip bit of rax 
+
+- If rax was 1 it will be 0 , if it was 0 it will be 1
+- Therefore if rax will be 1 if it was even , it will be 0 if it was odd
+
 ```sh
 
 hacker@assembly-crash-course~level11:~$ /challenge/run
